@@ -1,0 +1,21 @@
+{
+  "name": "announcekit-react-native",
+  "version": "0.1.0",
+  "description": "Use AnnounceKit widgets in your React Native apps",
+  "main": "src/index.js",
+  "author": "announcekit",
+  "repository": "https://github.com/announcekitapp/announcekit-react-native",
+  "homepage": "https://announcekit.app",
+  "keywords": [
+    "announcekit",
+    "newsfeed",
+    "changelog",
+    "widget",
+    "react-native"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "use-deep-compare": "*",
+    "react-native-webview": "11.13.0"
+  }
+}
