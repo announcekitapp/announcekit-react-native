@@ -1,6 +1,6 @@
 {
   "name": "announcekit-react-native",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Use AnnounceKit widgets in your React Native apps",
   "main": "src/index.tsx",
   "author": "announcekit",
@@ -19,8 +19,6 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@types/react": "^17.0.39",
-    "@types/react-native": "^0.66.15",
     "husky": "^5.0.9",
     "prettier": "^2.2.1",
     "pretty-quick": "^3.1.0",
