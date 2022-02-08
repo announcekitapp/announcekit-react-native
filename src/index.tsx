@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useDeepCompareEffect } from 'use-deep-compare';
 import { Modal, StyleSheet, View } from 'react-native';
-import {WebView} from 'react-native-webview';
+import { WebView } from 'react-native-webview';
 
 const Ctx = React.createContext<any>({});
 
