@@ -78,6 +78,5 @@ useUnreadCount(): number | undefined
 useWidget(): [open(), close()]
 ```
 
-##FAQ
-
+## FAQ
 If you have any questions contact https://announcekit.app or use [Issues](https://github.com/announcekitapp/announcekit-react-native/issues).
