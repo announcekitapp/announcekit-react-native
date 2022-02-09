@@ -1,0 +1,15 @@
+{
+  "exclude": ["node_modules", "dist"],
+  "compilerOptions": {
+    "target": "es5",
+    "module": "ES2015",
+    "lib": ["dom", "esnext"],
+    "declaration": true,
+    "sourceMap": true,
+    "rootDir": "src",
+    "outDir": "dist",
+    "jsx": "react",
+    "esModuleInterop": true,
+    "moduleResolution": "node"
+  }
+}
