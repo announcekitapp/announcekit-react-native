@@ -2,7 +2,7 @@
 
 AnnounceKit Widget React Native Wrapper
 
-![](https://img.announcekit.app/3f4d5a6763678c04cbdea1d636df115b?s=944ffc1f2805bbb808cd6cfee4ce638e)
+<img src="https://img.announcekit.app/3f4d5a6763678c04cbdea1d636df115b?s=944ffc1f2805bbb808cd6cfee4ce638e" alt='screenshot of SDK' />
 
 ## Example
 Live: https://snack.expo.dev/@amiralin/announcekit-widget
