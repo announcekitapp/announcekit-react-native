@@ -31,6 +31,7 @@ export function AnnounceKitProvider({
   children,
 }: AnnounceKitProps) {
   const [state, setState] = React.useState<any>({});
+  const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
   const params = { data, lang, user, user_token, labels, mobile: true };
 
@@ -48,12 +49,9 @@ export function AnnounceKitProvider({
   }, [widget, params]);
 
   return (
-    <Ctx.Provider value={[state, params, { widget, setState }]}>
+    <Ctx.Provider value={[state, params, { widget, setState, setIsOpen }]}>
       {children}
-      <Widget
-        visible={!!state.$rn_open}
-        onRequestClose={() => setState({ ...state, $rn_open: false })}
-      />
+      <Widget visible={isOpen} onRequestClose={() => setIsOpen(false)} />
     </Ctx.Provider>
   );
 }
@@ -75,12 +73,9 @@ export function useUnreadCount(): number | undefined {
 }
 
 export function useWidget() {
-  const [state, , { setState }] = React.useContext<any>(Ctx);
+  const [state, , { setIsOpen }] = React.useContext<any>(Ctx);
 
-  return [
-    () => setState({ ...state, $rn_open: true }),
-    () => setState({ ...state, $rn_open: false }),
-  ];
+  return [() => setIsOpen(true), () => setIsOpen(false)];
 }
 
 function Widget({ visible = true, onRequestClose = () => {} } = {}) {
@@ -98,9 +93,7 @@ function Widget({ visible = true, onRequestClose = () => {} } = {}) {
           widget={widget}
           params={params}
           onRequestClose={onRequestClose}
-          onState={(state) =>
-            setState({ ...state, $rn_open: oldstate.$rn_open })
-          }
+          onState={setState}
         />
       </View>
     </Modal>
@@ -108,9 +101,17 @@ function Widget({ visible = true, onRequestClose = () => {} } = {}) {
 }
 
 function Frame({ widget, params, onRequestClose, onState }) {
+  const mounted = React.useRef<boolean>(false);
+  const wv = React.useRef(null);
+
   const [state, setState] = React.useState({});
 
-  const wv = React.useRef(null);
+  React.useEffect(() => {
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
+    };
+  }, []);
 
   const body = new URLSearchParams({
     "json-body": JSON.stringify(params),
@@ -118,7 +119,7 @@ function Frame({ widget, params, onRequestClose, onState }) {
 
   const postMessage = (msg) => {
     wv.current.injectJavaScript(
-      `window.originalPostMessage(${JSON.stringify(msg)}, "*");`
+      `window.postMessage(${JSON.stringify(msg)}, "*");`
     );
   };
 
@@ -131,15 +132,11 @@ function Frame({ widget, params, onRequestClose, onState }) {
               viewPortTag.name = "viewport";
               viewPortTag.content = "width=device-width, initial-scale=1, maximum-scale=1";
               document.getElementsByTagName('head')[0].appendChild(viewPortTag);
-
-              window.originalPostMessage = window.postMessage;
-              window.postMessage = function(data) { window.ReactNativeWebView.postMessage(JSON.stringify(data)); }
             `}
-      //injectedJavaScriptBeforeContentLoaded={true}
       originWhitelist={["*"]}
       containerStyle={{ width: "100%", height: "100%" }}
       source={{
-        uri: `${widget}/view`,
+        uri: `${widget}/view?react-native`,
         method: "post",
         body,
         headers: {
@@ -150,6 +147,10 @@ function Frame({ widget, params, onRequestClose, onState }) {
         postMessage({ event: "R2L_INIT", payload: { params } });
       }}
       onMessage={(event) => {
+        if (!mounted.current) {
+          return;
+        }
+
         let message;
 
         try {
