@@ -28,7 +28,7 @@
     "typescript": "^4.1.3"
   },
   "dependencies": {
-    "react-native-webview": "^13.6.4",
+    "react-native-webview": "^13.2.2",
     "use-deep-compare": "^1.1.0"
   }
 }
