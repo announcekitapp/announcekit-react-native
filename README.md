@@ -5,15 +5,17 @@ AnnounceKit Widget React Native Wrapper
 ![screenshot](https://s10.gifyu.com/images/ezgif.com-gif-maker8e5e55b6b2f0ab92.gif)
 
 ## Example
-Live: https://snack.expo.dev/@amiralin/announcekit-widget
+
+Live: https://snack.expo.dev/@gustoma/announcekit-widget-v2
 
 ### Code Sample
+
 ```jsx
 function App() {
   return (
     <SafeAreaView style={styles.container}>
       <AnnounceKitProvider widget="https://announcekit.co/widgets/v2/4c6CdO">
-        <WidgetButton/>
+        <WidgetButton />
       </AnnounceKitProvider>
     </SafeAreaView>
   );
@@ -23,19 +25,21 @@ function WidgetButton() {
   const unread = useUnreadCount();
   const [openWidget] = useWidget();
 
-  if (typeof unread === 'undefined') return null;
+  if (typeof unread === "undefined") return null;
 
   return (
-    <Button title={`${unread} unread posts`} onPress={(e) => openWidget()}></Button>
+    <Button
+      title={`${unread} unread posts`}
+      onPress={(e) => openWidget()}
+    ></Button>
   );
 }
 ```
 
-
 ##Installation
 
 ```sh
-npm install announcekit-react-native 
+npm install announcekit-react-native
 ```
 
 Also install [react-native-webview](https://github.com/react-native-webview/react-native-webview) because it's a dependency for this package
@@ -50,10 +54,10 @@ Note: if you are on iOS, you will need this extra step: Install the native depen
 cd ios && pod install
 ```
 
-
 ## Documentation
 
 ### Props and Methods
+
 ```tsx
 //props:
 export interface AnnounceKitProps {
@@ -79,4 +83,5 @@ useWidget(): [open(), close()]
 ```
 
 ## FAQ
+
 If you have any questions contact https://announcekit.app or use [Issues](https://github.com/announcekitapp/announcekit-react-native/issues).
